@@ -2,35 +2,33 @@ package com.kodilla.lambda;
 
 import com.kodilla.reference.FunctionalCalculator;
 import com.kodilla.stream.beautifier.PoemBeautifier;
+import com.kodilla.stream.book.Book;
+import com.kodilla.stream.book.BookDirectory;
+import com.kodilla.stream.forumuser.Forum;
+import com.kodilla.stream.forumuser.ForumUser;
+import com.kodilla.stream.person.People;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class StreamMain {
     public static void main(String[] args) {
-        ExpressionExecutor expressionExecutor = new ExpressionExecutor();
+        BookDirectory theBookDirectory = new BookDirectory();
+        String theResultStringOfBooks = theBookDirectory.getList().stream()
+                .filter(book -> book.getYearOfPublication() > 2005)
+                .map(Book::toString)
+                .collect(Collectors.joining(",\n","<<",">>"));
 
-        System.out.println("Calculating expressions with lambdas");
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a + b);
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a - b);
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a * b);
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a / b);
+        System.out.println(theResultStringOfBooks);
 
-        System.out.println("Calculating expressions with method references");
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::multiplyAByB);
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::addAToB);
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::subBFromA);
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::divideAByB);
+        Forum forum = new Forum();
+        Map<Integer, ForumUser> theResultMapOfUsers = forum.getUserList().stream()
+                .filter(user -> user.getDateOfBirth().getYear() < 2002)
+                .filter(user -> user.getUserSex() == 'M')
+                .filter(user -> user.getNumberOfPosts() > 0)
+                .collect(Collectors.toMap(ForumUser::getUserID, user -> user));
 
-        PoemBeautifier poemBeautifier = new PoemBeautifier();
-        poemBeautifier.beautify("aaaaa", (text) -> "ABC" + text + "ABC");
-        poemBeautifier.beautify("aaaaa", (text) -> text.toUpperCase());
-        poemBeautifier.beautify("aaaaa", (text) -> text.replaceAll("a", "b"));
-        poemBeautifier.beautify("aaaaa", (text) -> text.toLowerCase());
-
-        poemBeautifier.beautify("Asloden", (text) -> "ABC" + text + "ABC");
-        poemBeautifier.beautify("Asloden", (text) -> text.toUpperCase());
-        poemBeautifier.beautify("Asloden", (text) -> text.replaceAll("A", "b"));
-        poemBeautifier.beautify("Asloden", (text) -> text.toLowerCase());
-
-
-
+        System.out.println(theResultMapOfUsers);
     }
     }
