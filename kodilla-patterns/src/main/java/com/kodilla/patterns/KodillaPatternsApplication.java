@@ -1,6 +1,6 @@
-package com.kodilla;
+package com.kodilla.patterns;
 
-public class Main {
+public class KodillaPatternsApplication {
     public static void main(String[] args) {
         System.out.println("Hello world!");
     }

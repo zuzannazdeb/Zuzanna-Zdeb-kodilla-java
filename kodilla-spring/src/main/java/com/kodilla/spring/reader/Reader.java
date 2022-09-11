@@ -1,5 +1,7 @@
 package com.kodilla.spring.reader;
 
+import org.springframework.context.annotation.Lazy;
+
 public final class Reader {
 
     final Book theBook;
