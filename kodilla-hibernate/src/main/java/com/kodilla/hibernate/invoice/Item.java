@@ -23,7 +23,7 @@ public class Item {
     }
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "PRODUCT_ID")
+    @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")
     public Product getProduct() {
         return product;
     }
